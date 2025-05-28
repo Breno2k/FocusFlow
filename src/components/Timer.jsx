@@ -31,7 +31,7 @@ const Timer = () => {
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 59;
+                    return 5;
                 }
             })
         }, 1000)
@@ -58,26 +58,32 @@ const Timer = () => {
         clearInterval(temporizador.current)
     }
 
-    // função para resetar
-    const resetar = () => {
-        // cleartInterval consegue pausar o temporizador
-        clearInterval(temporizador.current);
-        temporizador.current = null;
-        setSeconds(0)
-
+    // função para timer finalizado
+    const timerZero = () => {
 
         if (alterMinutes === null) {
             setMinutes(2);
         } else {
             setMinutes(alterMinutes)
         }
+
+    }
+
+    // função para resetar
+    const resetar = () => {
+        // cleartInterval consegue pausar o temporizador
+        clearInterval(temporizador.current);
+        temporizador.current = null;
+        setSeconds(0);
+
+        timerZero();
     }
 
     // condição para quando o timer chega a zero
     if ((minutes === 0) && (seconds === 0)) {
 
-        setSeconds(0)
-        setMinutes(alterMinutes)
+        setSeconds(0);
+        timerZero();
 
         pausar();
     }
