@@ -5,7 +5,7 @@ const TimerFoco = () => {
 
     return (
         <div>
-            <Timer />
+            <Timer initialMinutes={25} />
         </div>
     );
 };

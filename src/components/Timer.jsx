@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 
-const Timer = () => {
+const Timer = ({ initialMinutes }) => {
 
-    const [minutes, setMinutes] = useState(2);
+    const [minutes, setMinutes] = useState(initialMinutes);
     const [seconds, setSeconds] = useState(0);
     const temporizador = useRef(null);
     const [alterMinutes, setAlterMinutes] = useState(null)
@@ -12,7 +12,6 @@ const Timer = () => {
 
         console.log("Timer iniciado!")
 
-        // let minutos = 25
 
         temporizador.current = setInterval(() => {
 
