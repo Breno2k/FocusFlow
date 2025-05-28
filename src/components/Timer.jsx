@@ -5,6 +5,7 @@ const Timer = () => {
     const [minutes, setMinutes] = useState(2);
     const [seconds, setSeconds] = useState(0);
     const temporizador = useRef(null);
+    const [alterMinutes, setAlterMinutes] = useState()
 
     const iniciar = () => {
 
@@ -30,33 +31,41 @@ const Timer = () => {
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 59;
+                    return 5;
                 }
             })
         }, 1000)
     }
 
+    // Alterar tempo do timer
+    const handleAlterMinutes = (e) => {
+        e.preventDefault();
 
+        resetar();
+    }
+
+    // função para pausar
     const pausar = () => {
         // cleartInterval consegue pausar o temporizador
         clearInterval(temporizador.current)
     }
 
-    if ((minutes === 0) && (seconds === 0)) {
-
-        setSeconds(0)
-        setMinutes(10)
-
-        pausar();
-    }
-
-
+    // função para resetar
     const resetar = () => {
         // cleartInterval consegue pausar o temporizador
         clearInterval(temporizador.current);
         temporizador.current = null;
         setSeconds(0)
-        setMinutes(10)
+        setMinutes(alterMinutes)
+    }
+
+    // condição para quando o timer chega a zero
+    if ((minutes === 0) && (seconds === 0)) {
+
+        setSeconds(0)
+        setMinutes(alterMinutes)
+
+        pausar();
     }
 
     return (
@@ -65,6 +74,11 @@ const Timer = () => {
             <button onClick={iniciar}>Iniciar</button>
             <button onClick={pausar}>Pausar</button>
             <button onClick={resetar}>Resetar</button>
+            <form onSubmit={handleAlterMinutes}>
+                <label>Qual vai ser o seu período de foco ?</label>
+                <input type="number" name="minutos" value={alterMinutes} onChange={(e) => setAlterMinutes(e.target.value)} />
+                <button>Alterar</button>
+            </form>
         </div>
     )
 }
