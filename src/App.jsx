@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <h1>FocaFlow</h1>
+      <h1>Focaí</h1>
       <BrowserRouter>
         <Navbar />
         <Routes>

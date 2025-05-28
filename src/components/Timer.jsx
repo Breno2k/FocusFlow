@@ -5,10 +5,10 @@ const Timer = () => {
     const [minutes, setMinutes] = useState(2);
     const [seconds, setSeconds] = useState(0);
     const temporizador = useRef(null);
-    const [alterMinutes, setAlterMinutes] = useState()
+    const [alterMinutes, setAlterMinutes] = useState(null)
+    const [errorMessage, setErrorMessage] = useState("");
 
     const iniciar = () => {
-
 
         console.log("Timer iniciado!")
 
@@ -35,6 +35,8 @@ const Timer = () => {
                 }
             })
         }, 1000)
+
+        errorMessage("");
     }
 
     // Alterar tempo do timer
@@ -42,6 +44,12 @@ const Timer = () => {
         e.preventDefault();
 
         resetar();
+
+        // Condição de erro
+        if (alterMinutes <= 0) {
+            setMinutes(25);
+            return setErrorMessage("Insira um valor plausível");
+        }
     }
 
     // função para pausar
@@ -56,7 +64,13 @@ const Timer = () => {
         clearInterval(temporizador.current);
         temporizador.current = null;
         setSeconds(0)
-        setMinutes(alterMinutes)
+
+
+        if (alterMinutes === null) {
+            setMinutes(2);
+        } else {
+            setMinutes(alterMinutes)
+        }
     }
 
     // condição para quando o timer chega a zero
@@ -78,6 +92,7 @@ const Timer = () => {
                 <label>Qual vai ser o seu período de foco ?</label>
                 <input type="number" name="minutos" value={alterMinutes} onChange={(e) => setAlterMinutes(e.target.value)} />
                 <button>Alterar</button>
+                {errorMessage && <p>{errorMessage}</p>}
             </form>
         </div>
     )
