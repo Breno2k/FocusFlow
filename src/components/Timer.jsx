@@ -31,12 +31,12 @@ const Timer = () => {
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 5;
+                    return 59;
                 }
             })
         }, 1000)
 
-        errorMessage("");
+        setErrorMessage("");
     }
 
     // Alterar tempo do timer
@@ -84,7 +84,8 @@ const Timer = () => {
 
     return (
         <div>
-            <p>{minutes}:{seconds}</p>
+            {/* padStart faz com que seconds sem seja exibido com dois digitos */}
+            <p>{minutes}:{String(seconds).padStart(2, '0')}</p>
             <button onClick={iniciar}>Iniciar</button>
             <button onClick={pausar}>Pausar</button>
             <button onClick={resetar}>Resetar</button>
