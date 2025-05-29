@@ -6,6 +6,7 @@ import './App.css'
 import TimerFoco from './pages/TimerFoco'
 import TimerPause from './pages/TimerPause'
 import Navbar from './components/Navbar'
+import { TimerProvider } from './context/TimerContext'
 
 function App() {
 
@@ -13,13 +14,16 @@ function App() {
   return (
     <>
       <h1>Focaí</h1>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<TimerFoco />} />
-          <Route path="/TimerPause" element={<TimerPause />} />
-        </Routes>
-      </BrowserRouter>
+      <TimerProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<TimerFoco />} />
+            <Route path="/TimerPause" element={<TimerPause />} />
+          </Routes>
+        </BrowserRouter>
+      </TimerProvider>
+
     </>
   )
 }
