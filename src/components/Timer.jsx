@@ -46,7 +46,7 @@ const Timer = ({ initialMinutes }) => {
 
         // Condição de erro
         if (alterMinutes <= 0) {
-            setMinutes(25);
+            setMinutes(initialMinutes);
             return setErrorMessage("Insira um valor plausível");
         }
     }
@@ -61,7 +61,7 @@ const Timer = ({ initialMinutes }) => {
     const timerZero = () => {
 
         if (alterMinutes === null) {
-            setMinutes(2);
+            setMinutes(initialMinutes);
         } else {
             setMinutes(alterMinutes)
         }
