@@ -1,13 +1,14 @@
 import { useRef, useState } from 'react'
 
-const Timer = ({ minutes, setMinutes, alterMinutes }) => {
+const Timer = ({
+    minutes, setMinutes, alterMinutes,
+    resetMinutes, setResetMinutes, initialMinutes }) => {
 
     // const [initialMinutes] = useState(minutes);
     const [seconds, setSeconds] = useState(0);
     const temporizador = useRef(null);
     const [errorMessage, setErrorMessage] = useState("");
-    const [inputMinutes, setInputMinutes] = useState(null)
-    const [resetMinutes, setResetMinutes] = useState(minutes)
+    const [inputMinutes, setInputMinutes] = useState("");
 
 
     const iniciar = () => {
@@ -32,7 +33,7 @@ const Timer = ({ minutes, setMinutes, alterMinutes }) => {
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 5;
+                    return 59;
                 }
             })
         }, 1000)
@@ -86,6 +87,11 @@ const Timer = ({ minutes, setMinutes, alterMinutes }) => {
         setSeconds(0);
         timerZero();
         pausar();
+    };
+
+    const voltarAoPadrao = () => {
+        setResetMinutes(initialMinutes); // redefine o padrão de reset
+        setMinutes(initialMinutes); // redefine o timer atual
     };
 
     return (

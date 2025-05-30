@@ -3,8 +3,18 @@ import { createContext, useState } from "react";
 export const TimerContext = createContext();
 
 export const TimerProvider = ({ children }) => {
-    const [focusMinutes, setFocusMinutes] = useState(25);
-    const [pauseMinutes, setPauseMinutes] = useState(5);
+
+    // Minutos iniciais
+    const [initialPauseMinutes] = useState(5)
+    const [initialFocusMinutes] = useState(25)
+
+    // Valores padrões
+    const [focusMinutes, setFocusMinutes] = useState(initialFocusMinutes);
+    const [pauseMinutes, setPauseMinutes] = useState(initialPauseMinutes);
+
+    // Reset Minutes
+    const [resetFocusMinutes, setResetFocusMinutes] = useState(initialFocusMinutes)
+    const [resetPauseMinutes, setResetPauseMinutes] = useState(initialPauseMinutes)
 
 
     const alterFocusMinutes = (novoValor) => {
@@ -25,6 +35,9 @@ export const TimerProvider = ({ children }) => {
             focusMinutes, setFocusMinutes,
             pauseMinutes, setPauseMinutes,
             alterFocusMinutes, alterPauseMinutes,
+            initialFocusMinutes, initialPauseMinutes,
+            resetFocusMinutes, setResetFocusMinutes,
+            resetPauseMinutes, setResetPauseMinutes
         }}>
             {children}
         </TimerContext.Provider>

@@ -3,7 +3,8 @@ import { useTimer } from "../hooks/useTimer";
 
 const TimerPause = () => {
 
-    const { pauseMinutes, setPauseMinutes, alterPauseMinutes } = useTimer();
+    const { pauseMinutes, setPauseMinutes, alterPauseMinutes,
+        resetPauseMinutes, setResetPauseMinutes, initialPauseMinutes } = useTimer();
 
     return (
         <div>
@@ -11,7 +12,10 @@ const TimerPause = () => {
             <Timer
                 minutes={pauseMinutes}
                 setMinutes={setPauseMinutes}
-                alterMinutes={alterPauseMinutes} />
+                alterMinutes={alterPauseMinutes}
+                resetMinutes={resetPauseMinutes}
+                setResetMinutes={setResetPauseMinutes}
+                initialMinutes={initialPauseMinutes} />
         </div>
     )
 }
