@@ -1,6 +1,4 @@
-import { useContext } from "react"
 import { TimerContext } from "../context/TimerContext"
+import { useContext } from "react"
 
-export function useTimer() {
-    return useContext(TimerContext)
-}
+export const useTimer = () => useContext(TimerContext);

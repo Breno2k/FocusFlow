@@ -1,11 +1,14 @@
 import { useRef, useState } from 'react'
 
-const Timer = ({ minutes, setMinutes }) => {
+const Timer = ({ minutes, setMinutes, alterMinutes }) => {
 
+    // const [initialMinutes] = useState(minutes);
     const [seconds, setSeconds] = useState(0);
     const temporizador = useRef(null);
-    const [alterMinutes, setAlterMinutes] = useState(null)
     const [errorMessage, setErrorMessage] = useState("");
+    const [inputMinutes, setInputMinutes] = useState(null)
+    const [resetMinutes, setResetMinutes] = useState(minutes)
+
 
     const iniciar = () => {
 
@@ -41,31 +44,31 @@ const Timer = ({ minutes, setMinutes }) => {
     const handleAlterMinutes = (e) => {
         e.preventDefault();
 
-        resetar();
+        const newMinutes = parseInt(inputMinutes)
 
         // Condição de erro
-        if (alterMinutes <= 0) {
-            setMinutes(minutes);
-            return setErrorMessage("Insira um valor plausível");
+        if (newMinutes <= 0) {
+            setErrorMessage("Insira um valor plausível");
+            return;
         }
-    }
 
-    // função para pausar
-    const pausar = () => {
-        // cleartInterval consegue pausar o temporizador
-        clearInterval(temporizador.current)
+        setResetMinutes(newMinutes); // atualizando valor de reset
+        resetar();
+        alterMinutes(newMinutes); // isso vai alterar diretamente no context
+        setInputMinutes("");
     }
 
     // função para timer finalizado
     const timerZero = () => {
 
-        if (alterMinutes === null) {
-            setMinutes(minutes);
-        } else {
-            setMinutes(alterMinutes)
-        }
+        setMinutes(resetMinutes);
+    };
 
-    }
+    // função para pausar
+    const pausar = () => {
+        // cleartInterval consegue pausar o temporizador
+        clearInterval(temporizador.current);
+    };
 
     // função para resetar
     const resetar = () => {
@@ -82,9 +85,8 @@ const Timer = ({ minutes, setMinutes }) => {
 
         setSeconds(0);
         timerZero();
-
         pausar();
-    }
+    };
 
     return (
         <div>
@@ -93,9 +95,11 @@ const Timer = ({ minutes, setMinutes }) => {
             <button onClick={iniciar}>Iniciar</button>
             <button onClick={pausar}>Pausar</button>
             <button onClick={resetar}>Resetar</button>
+
+            {/* formulário para alterar minutos */}
             <form onSubmit={handleAlterMinutes}>
                 <label>Qual vai ser o seu período de foco ?</label>
-                <input type="number" name="minutos" value={alterMinutes} onChange={(e) => setAlterMinutes(e.target.value)} />
+                <input type="number" name="minutos" value={inputMinutes} onChange={(e) => setInputMinutes(e.target.value)} />
                 <button>Alterar</button>
                 {errorMessage && <p>{errorMessage}</p>}
             </form>

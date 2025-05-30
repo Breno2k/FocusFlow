@@ -3,11 +3,14 @@ import { useTimer } from "../hooks/useTimer";
 
 const TimerFoco = () => {
 
-    const { focusMinutes, setFocusMinutes } = useTimer();
+    const { focusMinutes, setFocusMinutes, alterFocusMinutes } = useTimer();
 
     return (
         <div>
-            <Timer minutes={focusMinutes} setMinutes={setFocusMinutes} />
+            <Timer
+                minutes={focusMinutes}
+                setMinutes={setFocusMinutes}
+                alterMinutes={alterFocusMinutes} />
         </div>
     );
 };
