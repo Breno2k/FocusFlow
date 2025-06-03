@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useRef } from "react";
 
 export const TimerContext = createContext();
 
@@ -7,6 +7,8 @@ export const TimerProvider = ({ children }) => {
     // Minutos iniciais
     const [initialPauseMinutes] = useState(5)
     const [initialFocusMinutes] = useState(25)
+    const [seconds, setSeconds] = useState(0);
+
 
     // Valores padrões
     const [focusMinutes, setFocusMinutes] = useState(initialFocusMinutes);
@@ -15,6 +17,74 @@ export const TimerProvider = ({ children }) => {
     // Reset Minutes
     const [resetFocusMinutes, setResetFocusMinutes] = useState(initialFocusMinutes)
     const [resetPauseMinutes, setResetPauseMinutes] = useState(initialPauseMinutes)
+
+    // temporizador
+    const temporizador = useRef(null);
+
+    // Mensagem de erro
+    const [errorMessage, setErrorMessage] = useState("");
+
+    // Iniciar timer 
+    const iniciarFoco = () => {
+
+        console.log("Timer iniciado!")
+
+
+        temporizador.current = setInterval(() => {
+
+            setSeconds((prevSeconds) => {
+                if (prevSeconds > 0) {
+                    // subtrai 1 segundo do tempo atual
+                    return prevSeconds - 1
+                } else {
+                    console.log("Decrementando minuto!")
+                    setFocusMinutes((prevMinutes) => {
+                        if (prevMinutes === 0) {
+                            clearInterval(temporizador.current);
+                            return 0
+                        };
+                        // diminui 1 minuto
+                        return prevMinutes - 1
+                    })
+                    // reseta os segundos para 59
+                    return 5;
+                }
+            })
+        }, 1000)
+
+        setErrorMessage("");
+    }
+
+
+    const iniciarPause = () => {
+
+        console.log("Timer iniciado!")
+
+
+        temporizador.current = setInterval(() => {
+
+            setSeconds((prevSeconds) => {
+                if (prevSeconds > 0) {
+                    // subtrai 1 segundo do tempo atual
+                    return prevSeconds - 1
+                } else {
+                    console.log("Decrementando minuto!")
+                    setPauseMinutes((prevMinutes) => {
+                        if (prevMinutes === 0) {
+                            clearInterval(temporizador.current);
+                            return 0
+                        };
+                        // diminui 1 minuto
+                        return prevMinutes - 1
+                    })
+                    // reseta os segundos para 59
+                    return 5;
+                }
+            })
+        }, 1000)
+
+        setErrorMessage("");
+    }
 
     // Focus
     const alterFocusMinutes = (novoValor) => {
@@ -34,14 +104,37 @@ export const TimerProvider = ({ children }) => {
 
     return (
         <TimerContext.Provider value={{
+            // Minutos de foco e pausa
             focusMinutes, setFocusMinutes,
             pauseMinutes, setPauseMinutes,
-            alterFocusMinutes, alterPauseMinutes,
-            initialFocusMinutes, initialPauseMinutes,
+
+            // Segundos
+            seconds, setSeconds,
+
+            // Funções de iniciar
+            iniciarFoco,
+            iniciarPause,
+
+            // Funções de alteração
+            alterFocusMinutes,
+            alterPauseMinutes,
+
+            // Valores iniciais
+            initialFocusMinutes,
+            initialPauseMinutes,
+
+            // Valores de reset
             resetFocusMinutes, setResetFocusMinutes,
-            resetPauseMinutes, setResetPauseMinutes
+            resetPauseMinutes, setResetPauseMinutes,
+
+            // Mensagens de erro
+            errorMessage, setErrorMessage,
+
+            // Timer ref (opcional, se precisar manipular fora)
+            temporizador
         }}>
             {children}
         </TimerContext.Provider>
+
     )
 }

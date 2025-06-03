@@ -1,49 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Timer = ({
     minutes, setMinutes, alterMinutes,
-    resetMinutes, setResetMinutes, initialMinutes }) => {
+    resetMinutes, setResetMinutes, iniciar,
+    temporizador, seconds, setSeconds,
+    errorMessage, setErrorMessage }) => {
 
 
-    const [seconds, setSeconds] = useState(0);
-    const [errorMessage, setErrorMessage] = useState("");
+
     const [inputMinutes, setInputMinutes] = useState("");
     const [redirect, setRedirect] = useState(false);
 
-    const temporizador = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
 
-    const iniciar = () => {
-
-        console.log("Timer iniciado!")
-
-
-        temporizador.current = setInterval(() => {
-
-            setSeconds((prevSeconds) => {
-                if (prevSeconds > 0) {
-                    // subtrai 1 segundo do tempo atual
-                    return prevSeconds - 1
-                } else {
-                    console.log("Decrementando minuto!")
-                    setMinutes((prevMinutes) => {
-                        if (prevMinutes === 0) {
-                            clearInterval(temporizador);
-                            return 0
-                        };
-                        // diminui 1 minuto
-                        return prevMinutes - 1
-                    })
-                    // reseta os segundos para 59
-                    return 5;
-                }
-            })
-        }, 1000)
-
-        setErrorMessage("");
-    }
 
     // Alterar tempo do timer
     const handleAlterMinutes = (e) => {
@@ -53,7 +24,7 @@ const Timer = ({
         const newMinutes = parseInt(inputMinutes)
 
         // Condição de erro
-        if (newMinutes <= 0) {
+        if (newMinutes <= 0 || isNaN(newMinutes)) {
             setErrorMessage("Insira um valor plausível");
             return;
         }
@@ -94,21 +65,20 @@ const Timer = ({
             resetar();
 
             if (location.pathname === '/TimerFocus') {
-                navigate('/TimerPause');
+                navigate('/TimerPause', { state: { fromTimerEnd: true } });
             } else {
-                navigate('/TimerFocus')
+                navigate('/TimerFocus', { state: { fromTimerEnd: true } })
             };
+
+            // Evita duplicação do temporizador
+            clearInterval(temporizador.current);
             console.log("teste redirect")
-            iniciar()
             setRedirect(false)
         }
     }, [minutes, seconds, redirect]);
 
 
-    const voltarAoPadrao = () => {
-        setResetMinutes(initialMinutes); // redefine o padrão de reset
-        setMinutes(initialMinutes); // redefine o timer atual
-    };
+
 
     return (
         <div>
