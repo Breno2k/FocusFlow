@@ -5,7 +5,7 @@ const Timer = ({
     minutes, setMinutes, alterMinutes,
     resetMinutes, setResetMinutes, iniciar,
     temporizador, seconds, setSeconds,
-    errorMessage, setErrorMessage }) => {
+    errorMessage, setErrorMessage, pausar }) => {
 
 
 
@@ -41,11 +41,6 @@ const Timer = ({
         setMinutes(resetMinutes);
     };
 
-    // função para pausar
-    const pausar = () => {
-        // cleartInterval consegue pausar o temporizador
-        clearInterval(temporizador.current);
-    };
 
     // função para resetar
     const resetar = () => {

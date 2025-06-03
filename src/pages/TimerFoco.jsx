@@ -10,7 +10,7 @@ const TimerFoco = () => {
         alterFocusMinutes, resetFocusMinutes,
         setResetFocusMinutes, initialFocusMinutes,
         errorMessage, setErrorMessage,
-        temporizador, iniciarFoco } = useTimer();
+        temporizador, iniciarFoco, pausar } = useTimer();
 
     const location = useLocation();
 
@@ -19,6 +19,12 @@ const TimerFoco = () => {
             iniciarFoco();
         }
     }, [location])
+
+    useEffect(() => {
+        return () => {
+            pausar(); // é executado ao sair da página
+        };
+    }, []);
 
     return (
         <div>
@@ -47,7 +53,10 @@ const TimerFoco = () => {
                 temporizador={temporizador}
 
                 // function iniciar
-                iniciar={iniciarFoco} />
+                iniciar={iniciarFoco}
+
+                // function de pausar
+                pausar={pausar} />
 
         </div>
     );

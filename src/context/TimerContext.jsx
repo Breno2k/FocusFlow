@@ -21,6 +21,12 @@ export const TimerProvider = ({ children }) => {
     // temporizador
     const temporizador = useRef(null);
 
+    // função para pausar
+    const pausar = () => {
+        // cleartInterval consegue pausar o temporizador
+        clearInterval(temporizador.current);
+    };
+
     // Mensagem de erro
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -47,7 +53,7 @@ export const TimerProvider = ({ children }) => {
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 5;
+                    return 59;
                 }
             })
         }, 1000)
@@ -78,7 +84,7 @@ export const TimerProvider = ({ children }) => {
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 5;
+                    return 59;
                 }
             })
         }, 1000)
@@ -131,7 +137,10 @@ export const TimerProvider = ({ children }) => {
             errorMessage, setErrorMessage,
 
             // Timer ref (opcional, se precisar manipular fora)
-            temporizador
+            temporizador,
+
+            // Função de pausar
+            pausar
         }}>
             {children}
         </TimerContext.Provider>

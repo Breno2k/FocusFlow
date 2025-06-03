@@ -8,7 +8,7 @@ const TimerPause = () => {
     const { pauseMinutes, setPauseMinutes, alterPauseMinutes,
         seconds, setSeconds, errorMessage, setErrorMessage,
         resetPauseMinutes, setResetPauseMinutes, initialPauseMinutes,
-        temporizador, iniciarPause } = useTimer();
+        temporizador, iniciarPause, pausar } = useTimer();
 
     const location = useLocation();
 
@@ -17,6 +17,12 @@ const TimerPause = () => {
             iniciarPause();
         }
     }, [location])
+
+    useEffect(() => {
+        return () => {
+            pausar(); // é executado ao sair da página
+        };
+    }, []);
 
 
     return (
@@ -46,7 +52,10 @@ const TimerPause = () => {
                 temporizador={temporizador}
 
                 // function iniciar
-                iniciar={iniciarPause} />
+                iniciar={iniciarPause}
+
+                // function de pausar
+                pausar={pausar} />
         </div>
     )
 }
