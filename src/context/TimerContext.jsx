@@ -16,17 +16,19 @@ export const TimerProvider = ({ children }) => {
     const [resetFocusMinutes, setResetFocusMinutes] = useState(initialFocusMinutes)
     const [resetPauseMinutes, setResetPauseMinutes] = useState(initialPauseMinutes)
 
-
+    // Focus
     const alterFocusMinutes = (novoValor) => {
-        // focus
+
         const num = Number(novoValor);
         setFocusMinutes(num);
 
     }
 
+    // Pause
     const alterPauseMinutes = (novoValor) => {
-        // pause
+        // pegamos o novo valor de minutes
         const num = Number(novoValor);
+        // e passamos como valor padrão para minutes
         setPauseMinutes(num);
     }
 

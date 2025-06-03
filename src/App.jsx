@@ -18,7 +18,7 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<TimerFoco />} />
+            <Route path="/TimerFocus" element={<TimerFoco />} />
             <Route path="/TimerPause" element={<TimerPause />} />
           </Routes>
         </BrowserRouter>

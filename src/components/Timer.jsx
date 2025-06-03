@@ -1,15 +1,19 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Timer = ({
     minutes, setMinutes, alterMinutes,
     resetMinutes, setResetMinutes, initialMinutes }) => {
 
-    // const [initialMinutes] = useState(minutes);
+
     const [seconds, setSeconds] = useState(0);
-    const temporizador = useRef(null);
     const [errorMessage, setErrorMessage] = useState("");
     const [inputMinutes, setInputMinutes] = useState("");
+    const [redirect, setRedirect] = useState(false);
 
+    const temporizador = useRef(null);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const iniciar = () => {
 
@@ -33,7 +37,7 @@ const Timer = ({
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 59;
+                    return 5;
                 }
             })
         }, 1000)
@@ -45,6 +49,7 @@ const Timer = ({
     const handleAlterMinutes = (e) => {
         e.preventDefault();
 
+        // criei uma constante para receber o novo valor de minutes
         const newMinutes = parseInt(inputMinutes)
 
         // Condição de erro
@@ -55,8 +60,8 @@ const Timer = ({
 
         setResetMinutes(newMinutes); // atualizando valor de reset
         resetar();
-        alterMinutes(newMinutes); // isso vai alterar diretamente no context
-        setInputMinutes("");
+        alterMinutes(newMinutes); // alterar diretamente no context como valor global
+        setInputMinutes(""); // limpa o campo de inputs
     }
 
     // função para timer finalizado
@@ -82,12 +87,23 @@ const Timer = ({
     }
 
     // condição para quando o timer chega a zero
-    if ((minutes === 0) && (seconds === 0)) {
+    useEffect(() => {
+        if ((minutes === 0) && (seconds === 0) && !redirect) {
+            setRedirect(true);
+            setSeconds(0);
+            resetar();
 
-        setSeconds(0);
-        timerZero();
-        pausar();
-    };
+            if (location.pathname === '/TimerFocus') {
+                navigate('/TimerPause');
+            } else {
+                navigate('/TimerFocus')
+            };
+            console.log("teste redirect")
+            iniciar()
+            setRedirect(false)
+        }
+    }, [minutes, seconds, redirect]);
+
 
     const voltarAoPadrao = () => {
         setResetMinutes(initialMinutes); // redefine o padrão de reset

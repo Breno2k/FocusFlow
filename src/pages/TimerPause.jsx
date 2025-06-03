@@ -8,7 +8,6 @@ const TimerPause = () => {
 
     return (
         <div>
-            <h3>Timer pause</h3>
             <Timer
                 minutes={pauseMinutes}
                 setMinutes={setPauseMinutes}
