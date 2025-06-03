@@ -7,11 +7,14 @@ export const TimerProvider = ({ children }) => {
     // Minutos iniciais
     const [initialPauseMinutes] = useState(5)
     const [initialFocusMinutes] = useState(25)
-    const [seconds, setSeconds] = useState(0);
+
 
 
     // Valores padrões
     const [focusMinutes, setFocusMinutes] = useState(initialFocusMinutes);
+    const [focusSeconds, setFocusSeconds] = useState(0);
+
+    const [pauseSeconds, setPauseSeconds] = useState(0);
     const [pauseMinutes, setPauseMinutes] = useState(initialPauseMinutes);
 
     // Reset Minutes
@@ -38,7 +41,7 @@ export const TimerProvider = ({ children }) => {
 
         temporizador.current = setInterval(() => {
 
-            setSeconds((prevSeconds) => {
+            setFocusSeconds((prevSeconds) => {
                 if (prevSeconds > 0) {
                     // subtrai 1 segundo do tempo atual
                     return prevSeconds - 1
@@ -69,7 +72,7 @@ export const TimerProvider = ({ children }) => {
 
         temporizador.current = setInterval(() => {
 
-            setSeconds((prevSeconds) => {
+            setPauseSeconds((prevSeconds) => {
                 if (prevSeconds > 0) {
                     // subtrai 1 segundo do tempo atual
                     return prevSeconds - 1
@@ -115,7 +118,8 @@ export const TimerProvider = ({ children }) => {
             pauseMinutes, setPauseMinutes,
 
             // Segundos
-            seconds, setSeconds,
+            focusSeconds, setFocusSeconds,
+            pauseSeconds, setPauseSeconds,
 
             // Funções de iniciar
             iniciarFoco,

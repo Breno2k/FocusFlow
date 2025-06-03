@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const TimerFoco = () => {
 
     const { focusMinutes, setFocusMinutes,
-        seconds, setSeconds,
+        focusSeconds, setFocusSeconds,
         alterFocusMinutes, resetFocusMinutes,
         setResetFocusMinutes, initialFocusMinutes,
         errorMessage, setErrorMessage,
@@ -34,8 +34,8 @@ const TimerFoco = () => {
                 setMinutes={setFocusMinutes}
 
                 // Seconds
-                seconds={seconds}
-                setSeconds={setSeconds}
+                seconds={focusSeconds}
+                setSeconds={setFocusSeconds}
 
                 // AlterMinutes
                 alterMinutes={alterFocusMinutes}

@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 const TimerPause = () => {
 
     const { pauseMinutes, setPauseMinutes, alterPauseMinutes,
-        seconds, setSeconds, errorMessage, setErrorMessage,
+        pauseSeconds, setPauseSeconds, errorMessage, setErrorMessage,
         resetPauseMinutes, setResetPauseMinutes, initialPauseMinutes,
         temporizador, iniciarPause, pausar } = useTimer();
 
@@ -33,8 +33,8 @@ const TimerPause = () => {
                 setMinutes={setPauseMinutes}
 
                 // Seconds
-                seconds={seconds}
-                setSeconds={setSeconds}
+                seconds={pauseSeconds}
+                setSeconds={setPauseSeconds}
 
                 // AlterMinutes
                 alterMinutes={alterPauseMinutes}
