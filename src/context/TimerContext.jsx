@@ -38,6 +38,11 @@ export const TimerProvider = ({ children }) => {
 
         console.log("Timer iniciado!")
 
+        // Se já existe um timer rodando, limpa ele primeiro
+        if (temporizador.current) {
+            clearInterval(temporizador.current);
+        }
+
 
         temporizador.current = setInterval(() => {
 
@@ -68,6 +73,11 @@ export const TimerProvider = ({ children }) => {
     const iniciarPause = () => {
 
         console.log("Timer iniciado!")
+
+        // Se já existe um timer rodando, limpa ele primeiro
+        if (temporizador.current) {
+            clearInterval(temporizador.current);
+        }
 
 
         temporizador.current = setInterval(() => {
