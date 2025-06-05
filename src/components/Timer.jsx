@@ -8,7 +8,6 @@ const Timer = ({
     errorMessage, setErrorMessage, pausar }) => {
 
 
-
     const [inputMinutes, setInputMinutes] = useState("");
     const [redirect, setRedirect] = useState(false);
 
@@ -67,8 +66,8 @@ const Timer = ({
 
             // Evita duplicação do temporizador
             clearInterval(temporizador.current);
-            console.log("teste redirect")
-            setRedirect(false)
+
+            setRedirect(false);
         }
     }, [minutes, seconds, redirect]);
 

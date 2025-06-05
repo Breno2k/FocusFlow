@@ -36,8 +36,6 @@ export const TimerProvider = ({ children }) => {
     // Iniciar timer 
     const iniciarFoco = () => {
 
-        console.log("Timer iniciado!")
-
         // Se já existe um timer rodando, limpa ele primeiro
         if (temporizador.current) {
             clearInterval(temporizador.current);
@@ -51,7 +49,7 @@ export const TimerProvider = ({ children }) => {
                     // subtrai 1 segundo do tempo atual
                     return prevSeconds - 1
                 } else {
-                    console.log("Decrementando minuto!")
+
                     setFocusMinutes((prevMinutes) => {
                         if (prevMinutes === 0) {
                             clearInterval(temporizador.current);
@@ -72,7 +70,7 @@ export const TimerProvider = ({ children }) => {
 
     const iniciarPause = () => {
 
-        console.log("Timer iniciado!")
+
 
         // Se já existe um timer rodando, limpa ele primeiro
         if (temporizador.current) {
@@ -87,7 +85,7 @@ export const TimerProvider = ({ children }) => {
                     // subtrai 1 segundo do tempo atual
                     return prevSeconds - 1
                 } else {
-                    console.log("Decrementando minuto!")
+
                     setPauseMinutes((prevMinutes) => {
                         if (prevMinutes === 0) {
                             clearInterval(temporizador.current);
@@ -105,7 +103,7 @@ export const TimerProvider = ({ children }) => {
         setErrorMessage("");
     }
 
-    // Focus
+    // Alter focus
     const alterFocusMinutes = (novoValor) => {
 
         const num = Number(novoValor);
@@ -113,7 +111,7 @@ export const TimerProvider = ({ children }) => {
 
     }
 
-    // Pause
+    // Alter pause
     const alterPauseMinutes = (novoValor) => {
         // pegamos o novo valor de minutes
         const num = Number(novoValor);
