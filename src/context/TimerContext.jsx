@@ -41,7 +41,6 @@ export const TimerProvider = ({ children }) => {
             clearInterval(temporizador.current);
         }
 
-
         temporizador.current = setInterval(() => {
 
             setFocusSeconds((prevSeconds) => {
@@ -70,13 +69,10 @@ export const TimerProvider = ({ children }) => {
 
     const iniciarPause = () => {
 
-
-
         // Se já existe um timer rodando, limpa ele primeiro
         if (temporizador.current) {
             clearInterval(temporizador.current);
         }
-
 
         temporizador.current = setInterval(() => {
 

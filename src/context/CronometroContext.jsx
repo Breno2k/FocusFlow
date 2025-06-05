@@ -5,17 +5,66 @@ export const CronometroContext = createContext();
 export const CronomemetroProvider = ({ children }) => {
 
     // Horas
-    const [initialHoras, setInitialHoras] = useState(0);
-    const [horas, setHoras] = useState(initialHoras);
+    const [horas, setHoras] = useState(0);
 
     // Minutos
-    const [initialCroMinutes, setCroInitialMinutes] = useState(0);
-    const [croMinutes, setCroMinutes] = useState(initialCroMinutes);
+    const [croMinutes, setCroMinutes] = useState(0);
 
     // Segundos
-    const [initialCroSeconds, setCroInitialSeconds] = useState(0);
-    const [croSeconds, setCroSeconds] = useState(initialCroSeconds);
+    const [croSeconds, setCroSeconds] = useState(0);
 
-    // Mensagem de erro
-    const [errorMessage, setErrorMessage] = useState("");
+
+    // temporizador
+    const temporizador = useRef(null);
+
+    // Iniciar Cronômetro
+    const iniciarCronometro = () => {
+
+        // Se já existe um timer rodando, limpa ele primeiro
+        if (temporizador.current) {
+            clearInterval(temporizador.current);
+        }
+
+        temporizador.current = setInterval(() => {
+
+            setCroSeconds((prevSeconds) => {
+                if (prevSeconds < 9) {
+
+                    // incrementa mais 1 segundo
+                    return prevSeconds + 1
+
+                } else {
+                    setCroMinutes(prevMinutes => {
+                        if (prevMinutes < 9) {
+
+                            // incrementa mais 1 minutos
+                            return prevMinutes + 1
+
+                        } else {
+
+                            // incrementea mais uma hora
+                            setHoras(prevHoras => prevHoras + 1)
+
+                            // reinicia minutos
+                            return 0
+                        }
+                    })
+
+                    // reinicia segundos
+                    return 0
+                }
+            })
+        }, 1000)
+    }
+
+    return (
+        <CronometroContext.Provider value={{
+            iniciarCronometro,
+            croMinutes, setCroMinutes,
+            croSeconds, setCroSeconds,
+            horas, setHoras
+        }}>
+            {children}
+        </CronometroContext.Provider>
+    )
 }
