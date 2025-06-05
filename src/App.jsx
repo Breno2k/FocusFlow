@@ -7,6 +7,7 @@ import TimerFoco from './pages/TimerFoco'
 import TimerPause from './pages/TimerPause'
 import Navbar from './components/Navbar'
 import { TimerProvider } from './context/TimerContext'
+import Cronometro from './pages/Cronometro'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
+            <Route path="/Cronometro" element={<Cronometro />} />
             <Route path="/TimerFocus" element={<TimerFoco />} />
             <Route path="/TimerPause" element={<TimerPause />} />
           </Routes>
