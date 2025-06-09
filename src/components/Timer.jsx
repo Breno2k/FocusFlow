@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
 
 const Timer = ({
     minutes, setMinutes, alterMinutes,
@@ -89,6 +97,19 @@ const Timer = ({
                 <button>Alterar</button>
                 {errorMessage && <p>{errorMessage}</p>}
             </form>
+            <Sheet>
+                <SheetTrigger>Open</SheetTrigger>
+                <SheetContent>
+                    <SheetHeader>
+                        <SheetTitle>Are you absolutely sure?</SheetTitle>
+                        <SheetDescription>
+                            This action cannot be undone. This will permanently delete your account
+                            and remove your data from our servers.
+                        </SheetDescription>
+                    </SheetHeader>
+                </SheetContent>
+            </Sheet>
+
         </div>
     )
 }
