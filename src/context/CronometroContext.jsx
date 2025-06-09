@@ -62,7 +62,7 @@ export const CronomemetroProvider = ({ children }) => {
             iniciarCronometro,
             croMinutes, setCroMinutes,
             croSeconds, setCroSeconds,
-            horas, setHoras
+            horas, setHoras, temporizador
         }}>
             {children}
         </CronometroContext.Provider>
