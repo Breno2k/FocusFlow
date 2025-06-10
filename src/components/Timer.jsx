@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet"
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer"
+import { Button } from './ui/button';
+
+import { Minus, Plus } from "lucide-react"
+
 
 const Timer = ({
     minutes, setMinutes, alterMinutes,
@@ -25,6 +31,7 @@ const Timer = ({
 
     // Alterar tempo do timer
     const handleAlterMinutes = (e) => {
+
         e.preventDefault();
 
         // criei uma constante para receber o novo valor de minutes
@@ -39,7 +46,7 @@ const Timer = ({
         setResetMinutes(newMinutes); // atualizando valor de reset
         resetar();
         alterMinutes(newMinutes); // alterar diretamente no context como valor global
-        setInputMinutes(""); // limpa o campo de inputs
+        // limpa o campo de inputs
     }
 
     // função para timer finalizado
@@ -90,25 +97,85 @@ const Timer = ({
             <button onClick={pausar}>Pausar</button>
             <button onClick={resetar}>Resetar</button>
 
+
             {/* formulário para alterar minutos */}
-            <form onSubmit={handleAlterMinutes}>
+            {/* <form onSubmit={handleAlterMinutes}>
                 <label>Qual vai ser o seu período de foco ?</label>
                 <input type="number" name="minutos" value={inputMinutes} onChange={(e) => setInputMinutes(e.target.value)} />
                 <button>Alterar</button>
                 {errorMessage && <p>{errorMessage}</p>}
-            </form>
-            <Sheet>
-                <SheetTrigger>Open</SheetTrigger>
-                <SheetContent>
-                    <SheetHeader>
-                        <SheetTitle>Are you absolutely sure?</SheetTitle>
-                        <SheetDescription>
-                            This action cannot be undone. This will permanently delete your account
-                            and remove your data from our servers.
-                        </SheetDescription>
-                    </SheetHeader>
-                </SheetContent>
-            </Sheet>
+            </form>  */}
+
+            <Drawer>
+                <DrawerTrigger asChild>
+                    <Button variant="outline">Configurar Foco</Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                    <div className="mx-auto w-full max-w-sm">
+                        <DrawerHeader>
+                            <DrawerTitle>Período de Foco</DrawerTitle>
+                            <DrawerDescription>
+                                Defina quantos minutos você quer focar nesta sessão.
+                            </DrawerDescription>
+                        </DrawerHeader>
+
+                        <div className="p-4 pb-0">
+                            <div className="flex items-center justify-center space-x-2">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="h-8 w-8 shrink-0 rounded-full"
+                                    onClick={() => setInputMinutes(Math.max(1, Number(inputMinutes - 1)))}
+                                    disabled={inputMinutes <= 1}
+                                >
+                                    <Minus className="h-4 w-4" />
+                                    <span className="sr-only">Diminuir</span>
+                                </Button>
+
+                                <div className="flex-1 text-center">
+                                    <input
+                                        type="number"
+                                        value={inputMinutes}
+                                        onChange={(e) => setInputMinutes(Number(e.target.value))}
+                                        className="w-full text-7xl font-bold tracking-tighter text-center bg-transparent border-none outline-none focus:ring-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                        min="1"
+                                        max="60"
+                                        placeholder="25"
+                                    />
+                                    <div className="text-muted-foreground text-[0.70rem] uppercase">
+                                        Minutos
+                                    </div>
+                                </div>
+
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="h-8 w-8 shrink-0 rounded-full"
+                                    onClick={() => setInputMinutes(Number(inputMinutes + 1))}
+                                >
+                                    <Plus className="h-4 w-4" />
+                                    <span className="sr-only">Aumentar</span>
+                                </Button>
+                            </div>
+
+                            {errorMessage && (
+                                <div className="mt-4 text-center">
+                                    <p className="text-sm text-destructive">{errorMessage}</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <DrawerFooter>
+                            <Button onClick={handleAlterMinutes}>
+                                Alterar Período
+                            </Button>
+                            <DrawerClose asChild>
+                                <Button variant="outline">Cancelar</Button>
+                            </DrawerClose>
+                        </DrawerFooter>
+                    </div>
+                </DrawerContent>
+            </Drawer>
 
         </div>
     )
