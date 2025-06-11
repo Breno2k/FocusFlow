@@ -10,7 +10,6 @@ const Cronometro = () => {
 
     return (
         <div>
-            <h2>Cronômentro</h2>
             <Cronomentro
                 //Horas
                 horas={horas}

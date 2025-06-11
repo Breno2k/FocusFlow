@@ -11,9 +11,8 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Button } from './ui/button';
-
 import { Minus, Plus } from "lucide-react"
-
+import "./Timer.css"
 
 const Timer = ({
     minutes, setMinutes, alterMinutes,
@@ -92,10 +91,10 @@ const Timer = ({
     return (
         <div>
             {/* padStart faz com que seconds sem seja exibido com dois digitos */}
-            <p>{minutes}:{String(seconds).padStart(2, '0')}</p>
+            <p className="timer">{minutes}:{String(seconds).padStart(2, '0')}</p>
             <button onClick={iniciar}>Iniciar</button>
-            <button onClick={pausar}>Pausar</button>
-            <button onClick={resetar}>Resetar</button>
+            <button className="material-symbols-outlined" onClick={pausar}>pause</button>
+            <button className="material-symbols-outlined" onClick={resetar}>refresh</button>
 
 
             {/* formulário para alterar minutos */}
@@ -110,10 +109,12 @@ const Timer = ({
                 <DrawerTrigger asChild>
                     <Button variant="outline">Configurar Foco</Button>
                 </DrawerTrigger>
-                <DrawerContent>
-                    <div className="mx-auto w-full max-w-sm">
+                <DrawerContent className="bg-black dark:bg-gray-900">
+                    <div className="mx-auto w-full max-w-sm bg-black dark:bg-gray-900">
                         <DrawerHeader>
-                            <DrawerTitle>Período de Foco</DrawerTitle>
+                            {location.pathname === '/TimerFocus' && <DrawerTitle>Período de Foco</DrawerTitle>}
+                            {location.pathname !== '/TimerFocus' && <DrawerTitle>Período de Pausa</DrawerTitle>}
+
                             <DrawerDescription>
                                 Defina quantos minutos você quer focar nesta sessão.
                             </DrawerDescription>
@@ -137,6 +138,7 @@ const Timer = ({
                                         type="number"
                                         value={inputMinutes}
                                         onChange={(e) => setInputMinutes(Number(e.target.value))}
+                                        onFocus={(e) => e.target.select()}
                                         className="w-full text-7xl font-bold tracking-tighter text-center bg-transparent border-none outline-none focus:ring-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                         min="1"
                                         max="60"
@@ -170,7 +172,7 @@ const Timer = ({
                                 Alterar Período
                             </Button>
                             <DrawerClose asChild>
-                                <Button variant="outline">Cancelar</Button>
+                                <Button variant="outline">Fechar</Button>
                             </DrawerClose>
                         </DrawerFooter>
                     </div>
