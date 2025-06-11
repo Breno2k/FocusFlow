@@ -28,14 +28,14 @@ export const CronomemetroProvider = ({ children }) => {
         temporizador.current = setInterval(() => {
 
             setCroSeconds((prevSeconds) => {
-                if (prevSeconds < 9) {
+                if (prevSeconds < 59) {
 
                     // incrementa mais 1 segundo
                     return prevSeconds + 1
 
                 } else {
                     setCroMinutes(prevMinutes => {
-                        if (prevMinutes < 9) {
+                        if (prevMinutes < 59) {
 
                             // incrementa mais 1 minutos
                             return prevMinutes + 1

@@ -91,7 +91,7 @@ export const TimerProvider = ({ children }) => {
                         return prevMinutes - 1
                     })
                     // reseta os segundos para 59
-                    return 5;
+                    return 59;
                 }
             })
         }, 1000)
