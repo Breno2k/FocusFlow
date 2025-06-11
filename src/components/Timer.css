@@ -1,5 +1,15 @@
 .timer {
     padding: 50px;
     font-size: 5em;
-    font-weight: bold;
+    font-family: "Dela Gothic One", sans-serif;
+    font-weight: 350;
+    font-style: normal;
+}
+
+.timer_cro {
+    padding: 50px;
+    font-size: 5em;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
