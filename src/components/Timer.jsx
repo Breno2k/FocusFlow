@@ -105,9 +105,11 @@ const Timer = ({
                 {errorMessage && <p>{errorMessage}</p>}
             </form>  */}
 
+
+
             <Drawer>
                 <DrawerTrigger asChild>
-                    <Button variant="outline">Configurar Foco</Button>
+                    <button className="py-2.5 px-5 material-symbols-outlined" variant="outline">settings</button>
                 </DrawerTrigger>
                 <DrawerContent className="bg-black dark:bg-gray-900">
                     <div className="mx-auto w-full max-w-sm bg-black dark:bg-gray-900">
