@@ -15,7 +15,10 @@ function App() {
 
   return (
     <>
-      <h1>Focaí</h1>
+      <nav>
+        <h2>focai</h2>
+      </nav>
+      <h1 className='pb-6'>Focai</h1>
       <TimerProvider>
         <CronomemetroProvider>
           <BrowserRouter>
