@@ -13,6 +13,7 @@ import {
 import { Button } from './ui/button';
 import { Minus, Plus } from "lucide-react"
 import "./Timer.css"
+import musica from "../assets/songs/ding-101492.mp3"
 
 const Timer = ({
     minutes, setMinutes, alterMinutes,
@@ -27,6 +28,7 @@ const Timer = ({
     const navigate = useNavigate();
     const location = useLocation();
 
+    const som = new Audio(musica);
 
     // Alterar tempo do timer
     const handleAlterMinutes = (e) => {
@@ -69,8 +71,10 @@ const Timer = ({
     useEffect(() => {
         if ((minutes === 0) && (seconds === 0) && !redirect) {
             setRedirect(true);
+            som.play();
             setSeconds(0);
             resetar();
+
 
             if (location.pathname === '/TimerFocus') {
                 navigate('/TimerPause', { state: { fromTimerEnd: true } });
