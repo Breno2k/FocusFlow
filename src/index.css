@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'Akira Expanded';
+  src: url('../fonts/Akira\ Expanded\ Demo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -10,7 +18,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: rgb(0, 0, 0);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
