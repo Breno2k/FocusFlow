@@ -52,7 +52,7 @@ export const TimerProvider = ({ children }) => {
             setTimerStartTime(Date.now());
             setInitialTotalSeconds(totalSeconds);
 
-            // NOVA LINHA: Verifica se o tempo está correto baseado no timestamp
+            // Verifica se o tempo está correto baseado no timestamp
             const elapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
             const shouldHaveSeconds = initialTotalSeconds - elapsedSeconds;
             const currentSeconds = focusMinutes * 60 + focusSeconds;
