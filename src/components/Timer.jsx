@@ -148,7 +148,7 @@ const Timer = ({
                                         className="w-full text-7xl font-bold tracking-tighter text-center bg-transparent border-none outline-none focus:ring-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                         min="1"
                                         max="60"
-                                        placeholder="25"
+                                        placeholder={location.pathname === '/TimerFocus' ? '25' : '5'}
                                     />
                                     <div className="text-muted-foreground text-[0.70rem] uppercase">
                                         Minutos
