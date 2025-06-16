@@ -35,6 +35,9 @@ const Timer = ({
 
         e.preventDefault();
 
+        // limpa mensagem de error
+        setErrorMessage("")
+
         // criei uma constante para receber o novo valor de minutes
         const newMinutes = parseInt(inputMinutes)
 
@@ -143,7 +146,17 @@ const Timer = ({
                                     <input
                                         type="number"
                                         value={inputMinutes}
-                                        onChange={(e) => setInputMinutes(Number(e.target.value))}
+                                        onChange={(e) => {
+
+                                            const value = e.target.value
+                                            // isso faz com que o usuário só digite números com 2 digitos
+                                            if (value.length <= 2) {
+                                                setInputMinutes(Number(value))
+                                            }
+                                        }
+
+                                        }
+                                        // ao clicar no texto, tudo vai ser selecionado
                                         onFocus={(e) => e.target.select()}
                                         className="w-full text-7xl font-bold tracking-tighter text-center bg-transparent border-none outline-none focus:ring-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                         min="1"
@@ -160,6 +173,7 @@ const Timer = ({
                                     size="icon"
                                     className="h-8 w-8 shrink-0 rounded-full"
                                     onClick={() => setInputMinutes(Number(inputMinutes + 1))}
+                                    disabled={inputMinutes >= 99}
                                 >
                                     <Plus className="h-4 w-4" />
                                     <span className="sr-only">Aumentar</span>
