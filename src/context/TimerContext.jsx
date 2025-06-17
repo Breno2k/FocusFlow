@@ -30,8 +30,12 @@ export const TimerProvider = ({ children }) => {
 
     // função para pausar
     const pausar = () => {
-        // cleartInterval consegue pausar o temporizador
-        clearInterval(temporizador.current);
+        if (temporizador.current) {
+            clearInterval(temporizador.current);
+            // Reseta o start time
+            setTimerStartTime(null);
+            setTimerStartTimePause(null);
+        }
     };
 
     // Mensagem de erro
@@ -45,33 +49,34 @@ export const TimerProvider = ({ children }) => {
             clearInterval(temporizador.current);
         }
 
+        // Armazena quando o timer começou e o tempo total inicial
+        const totalSeconds = focusMinutes * 60 + focusSeconds;
+        setTimerStartTime(Date.now());
+        setInitialTotalSeconds(totalSeconds);
+
         temporizador.current = setInterval(() => {
-
-            // Armazena quando o timer começou e o tempo total inicial
-            const totalSeconds = focusMinutes * 60 + focusSeconds;
-            setTimerStartTime(Date.now());
-            setInitialTotalSeconds(totalSeconds);
-
             // Verifica se o tempo está correto baseado no timestamp
-            const elapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
-            const shouldHaveSeconds = initialTotalSeconds - elapsedSeconds;
-            const currentSeconds = focusMinutes * 60 + focusSeconds;
+            if (timerStartTime) {
+                const elapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
+                const shouldHaveSeconds = initialTotalSeconds - elapsedSeconds;
+                const currentSeconds = focusMinutes * 60 + focusSeconds;
 
-            // Se a diferença for maior que 2 segundos, corrige o timer
-            if (Math.abs(currentSeconds - shouldHaveSeconds) > 2) {
-                const correctMinutes = Math.floor(shouldHaveSeconds / 60);
-                const correctSeconds = shouldHaveSeconds % 60;
+                // Se a diferença for maior que 2 segundos, corrige o timer
+                if (Math.abs(currentSeconds - shouldHaveSeconds) > 2) {
+                    const correctMinutes = Math.floor(shouldHaveSeconds / 60);
+                    const correctSeconds = shouldHaveSeconds % 60;
 
-                if (shouldHaveSeconds <= 0) {
-                    setFocusMinutes(0);
-                    setFocusSeconds(0);
-                    clearInterval(temporizador.current);
+                    if (shouldHaveSeconds <= 0) {
+                        setFocusMinutes(0);
+                        setFocusSeconds(0);
+                        clearInterval(temporizador.current);
+                        return;
+                    }
+
+                    setFocusMinutes(correctMinutes);
+                    setFocusSeconds(correctSeconds);
                     return;
                 }
-
-                setFocusMinutes(correctMinutes);
-                setFocusSeconds(correctSeconds);
-                return;
             }
 
             setFocusSeconds((prevSeconds) => {
@@ -110,30 +115,30 @@ export const TimerProvider = ({ children }) => {
         setTimerStartTimePause(Date.now());
         setInitialTotalSecondsPause(totalSecondsPause);
 
-        // NOVA LINHA: Verifica se o tempo está correto baseado no timestamp
-        const elapsedSecondsPause = Math.floor((Date.now() - timerStartTimePause) / 1000);
-        const shouldHaveSecondsPause = initialTotalSecondsPause - elapsedSecondsPause;
-        const currentSecondsPause = pauseMinutes * 60 + pauseSeconds;
-
-        // Se a diferença for maior que 2 segundos, corrige o timer
-        if (Math.abs(currentSecondsPause - shouldHaveSecondsPause) > 2) {
-            const correctMinutesPause = Math.floor(shouldHaveSecondsPause / 60);
-            const correctSecondsPause = shouldHaveSecondsPause % 60;
-
-            if (shouldHaveSecondsPause <= 0) {
-                setPauseMinutes(0);
-                setPauseSeconds(0);
-                clearInterval(temporizador.current);
-                return;
-            }
-
-            setPauseMinutes(correctMinutesPause);
-            setPauseSeconds(correctSecondsPause);
-            return;
-        }
-
         temporizador.current = setInterval(() => {
+            // Verifica se o tempo está correto baseado no timestamp
+            if (timerStartTimePause) {
+                const elapsedSecondsPause = Math.floor((Date.now() - timerStartTimePause) / 1000);
+                const shouldHaveSecondsPause = initialTotalSecondsPause - elapsedSecondsPause;
+                const currentSecondsPause = pauseMinutes * 60 + pauseSeconds;
 
+                // Se a diferença for maior que 2 segundos, corrige o timer
+                if (Math.abs(currentSecondsPause - shouldHaveSecondsPause) > 2) {
+                    const correctMinutesPause = Math.floor(shouldHaveSecondsPause / 60);
+                    const correctSecondsPause = shouldHaveSecondsPause % 60;
+
+                    if (shouldHaveSecondsPause <= 0) {
+                        setPauseMinutes(0);
+                        setPauseSeconds(0);
+                        clearInterval(temporizador.current);
+                        return;
+                    }
+
+                    setPauseMinutes(correctMinutesPause);
+                    setPauseSeconds(correctSecondsPause);
+                    return;
+                }
+            }
             setPauseSeconds((prevSeconds) => {
                 if (prevSeconds > 0) {
                     // subtrai 1 segundo do tempo atual
@@ -206,7 +211,11 @@ export const TimerProvider = ({ children }) => {
             temporizador,
 
             // Função de pausar
-            pausar
+            pausar,
+
+            // Prevenção para guia inativa
+            setTimerStartTime, setInitialTotalSeconds,
+            setTimerStartTimePause, setInitialTotalSecondsPause,
         }}>
             {children}
         </TimerContext.Provider>

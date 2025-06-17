@@ -8,7 +8,8 @@ const TimerPause = () => {
     const { pauseMinutes, setPauseMinutes, alterPauseMinutes,
         pauseSeconds, setPauseSeconds, errorMessage, setErrorMessage,
         resetPauseMinutes, setResetPauseMinutes, initialPauseMinutes,
-        temporizador, iniciarPause, pausar } = useTimer();
+        temporizador, iniciarPause, pausar,
+        setTimerStartTimePause, setInitialTotalSecondsPause, } = useTimer();
 
     const location = useLocation();
 
@@ -55,7 +56,11 @@ const TimerPause = () => {
                 iniciar={iniciarPause}
 
                 // function de pausar
-                pausar={pausar} />
+                pausar={pausar}
+
+                // Prevenção guia p/ inativa 
+                setTimerStartTime={setTimerStartTimePause}
+                setInitialTotalSeconds={setInitialTotalSecondsPause} />
         </div>
     )
 }

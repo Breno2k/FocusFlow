@@ -19,7 +19,8 @@ const Timer = ({
     minutes, setMinutes, alterMinutes,
     resetMinutes, setResetMinutes, iniciar,
     temporizador, seconds, setSeconds,
-    errorMessage, setErrorMessage, pausar }) => {
+    errorMessage, setErrorMessage, pausar,
+    setTimerStartTime, setInitialTotalSeconds }) => {
 
 
     const [inputMinutes, setInputMinutes] = useState("");
@@ -66,7 +67,8 @@ const Timer = ({
         clearInterval(temporizador.current);
         temporizador.current = null;
         setSeconds(0);
-
+        setTimerStartTime(null);
+        setInitialTotalSeconds(0);
         timerZero();
     }
 

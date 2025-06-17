@@ -10,7 +10,8 @@ const TimerFoco = () => {
         alterFocusMinutes, resetFocusMinutes,
         setResetFocusMinutes, initialFocusMinutes,
         errorMessage, setErrorMessage,
-        temporizador, iniciarFoco, pausar } = useTimer();
+        temporizador, iniciarFoco, pausar,
+        setTimerStartTime, setInitialTotalSeconds, } = useTimer();
 
     const location = useLocation();
 
@@ -56,7 +57,11 @@ const TimerFoco = () => {
                 iniciar={iniciarFoco}
 
                 // function de pausar
-                pausar={pausar} />
+                pausar={pausar}
+
+                // Prevenção guia p/ inativa
+                setTimerStartTime={setTimerStartTime}
+                setInitialTotalSeconds={setInitialTotalSeconds} />
 
         </div>
     );

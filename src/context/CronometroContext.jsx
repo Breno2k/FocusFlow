@@ -35,21 +35,22 @@ export const CronomemetroProvider = ({ children }) => {
 
         temporizador.current = setInterval(() => {
 
-            // Verifica se o tempo está correto baseado no timestamp
-            const elapsedSeconds = Math.floor((Date.now() - cronometroStartTime) / 1000);
-            const shouldHaveSeconds = cronometroInitialSeconds + elapsedSeconds;
-            const currentTotalSeconds = horas * 3600 + croMinutes * 60 + croSeconds;
+            if (cronometroStartTime) { // Só faz a verificação se o startTime existe
+                const elapsedSeconds = Math.floor((Date.now() - cronometroStartTime) / 1000);
+                const shouldHaveSeconds = cronometroInitialSeconds + elapsedSeconds;
+                const currentTotalSeconds = horas * 3600 + croMinutes * 60 + croSeconds;
 
-            // Se a diferença for maior que 2 segundos, corrige o cronômetro
-            if (Math.abs(currentTotalSeconds - shouldHaveSeconds) > 2) {
-                const correctHours = Math.floor(shouldHaveSeconds / 3600);
-                const correctMinutes = Math.floor((shouldHaveSeconds % 3600) / 60);
-                const correctSeconds = shouldHaveSeconds % 60;
+                // Se a diferença for maior que 2 segundos, corrige o cronômetro
+                if (Math.abs(currentTotalSeconds - shouldHaveSeconds) > 2) {
+                    const correctHours = Math.floor(shouldHaveSeconds / 3600);
+                    const correctMinutes = Math.floor((shouldHaveSeconds % 3600) / 60);
+                    const correctSeconds = shouldHaveSeconds % 60;
 
-                setHoras(correctHours);
-                setCroMinutes(correctMinutes);
-                setCroSeconds(correctSeconds);
-                return;
+                    setHoras(correctHours);
+                    setCroMinutes(correctMinutes);
+                    setCroSeconds(correctSeconds);
+                    return;
+                }
             }
 
             setCroSeconds((prevSeconds) => {
@@ -80,7 +81,8 @@ export const CronomemetroProvider = ({ children }) => {
             iniciarCronometro,
             croMinutes, setCroMinutes,
             croSeconds, setCroSeconds,
-            horas, setHoras, temporizador
+            horas, setHoras, temporizador,
+            setCronometroStartTime, setCronometroInitialSeconds,
         }}>
             {children}
         </CronometroContext.Provider>
