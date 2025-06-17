@@ -11,6 +11,8 @@
 }
 
 
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -58,10 +60,17 @@
   --sidebar-ring: oklch(0.708 0 0); */
 }
 
-a {
-  font-weight: 500;
-  text-decoration: inherit;
+header {
+  position: fixed;
+  display: flex;
+  top: 10px;
+  left: 30px;
+  width: 100%;
+  padding: 1rem;
+  z-index: 1000;
 }
+
+
 
 body {
   margin: 0;
@@ -71,6 +80,10 @@ body {
   min-height: 100vh;
   font-size: 1.3em;
   font-weight: bold;
+}
+a {
+  font-weight: 500;
+  text-decoration: inherit;
 }
 
 h1 {
