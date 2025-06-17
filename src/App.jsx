@@ -15,10 +15,13 @@ function App() {
 
   return (
     <>
-      <nav>
-        <h2>focai</h2>
-      </nav>
-      <h1 className='pb-6'>Focai</h1>
+      <header>
+        <nav>
+          <h2>FocusFlow</h2>
+        </nav>
+      </header>
+
+      <h1 className='pb-6'>FocusFlow</h1>
       <TimerProvider>
         <CronomemetroProvider>
           <BrowserRouter>
