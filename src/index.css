@@ -70,6 +70,20 @@ header {
   z-index: 1000;
 }
 
+footer {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background-color: #111111;
+  text-align: center;
+  bottom: 0;
+}
+
+footer p {
+  color: #2e2e2e;
+}
+
 
 
 body {
@@ -81,6 +95,8 @@ body {
   font-size: 1.3em;
   font-weight: bold;
 }
+
+
 a {
   font-weight: 500;
   text-decoration: inherit;

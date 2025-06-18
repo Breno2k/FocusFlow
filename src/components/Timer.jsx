@@ -105,17 +105,6 @@ const Timer = ({
             <button className="material-symbols-outlined" onClick={pausar}>pause</button>
             <button className="material-symbols-outlined" onClick={resetar}>refresh</button>
 
-
-            {/* formulário para alterar minutos */}
-            {/* <form onSubmit={handleAlterMinutes}>
-                <label>Qual vai ser o seu período de foco ?</label>
-                <input type="number" name="minutos" value={inputMinutes} onChange={(e) => setInputMinutes(e.target.value)} />
-                <button>Alterar</button>
-                {errorMessage && <p>{errorMessage}</p>}
-            </form>  */}
-
-
-
             <Drawer>
                 <DrawerTrigger asChild>
                     <button className="py-2.5 px-5 material-symbols-outlined" variant="outline">settings</button>

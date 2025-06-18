@@ -35,6 +35,9 @@ function App() {
         </CronomemetroProvider>
       </TimerProvider>
 
+      <footer>
+        <p>FocusFlow © 2025</p>
+      </footer>
     </>
   )
 }
