@@ -16,11 +16,10 @@ import "./Timer.css"
 import musica from "../assets/songs/ding-101492.mp3"
 
 const Timer = ({
-    minutes, setMinutes, alterMinutes,
-    resetMinutes, setResetMinutes, iniciar,
+    minutes, alterMinutes,
+    setResetMinutes, iniciar,
     temporizador, seconds, setSeconds,
-    errorMessage, setErrorMessage, pausar,
-    setTimerStartTime, setInitialTotalSeconds }) => {
+    errorMessage, setErrorMessage, pausar, resetar }) => {
 
 
     const [inputMinutes, setInputMinutes] = useState("");
@@ -54,23 +53,7 @@ const Timer = ({
         // limpa o campo de inputs
     }
 
-    // função para timer finalizado
-    const timerZero = () => {
 
-        setMinutes(resetMinutes);
-    };
-
-
-    // função para resetar
-    const resetar = () => {
-        // cleartInterval consegue pausar o temporizador
-        clearInterval(temporizador.current);
-        temporizador.current = null;
-        setSeconds(0);
-        setTimerStartTime(null);
-        setInitialTotalSeconds(0);
-        timerZero();
-    }
 
     // condição para quando o timer chega a zero
     useEffect(() => {

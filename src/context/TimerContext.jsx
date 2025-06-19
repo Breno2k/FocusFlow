@@ -8,12 +8,6 @@ export const TimerProvider = ({ children }) => {
     const [initialPauseMinutes] = useState(5)
     const [initialFocusMinutes] = useState(25)
 
-    const [timerStartTime, setTimerStartTime] = useState(null);
-    const [initialTotalSeconds, setInitialTotalSeconds] = useState(0);
-
-    const [timerStartTimePause, setTimerStartTimePause] = useState(null);
-    const [initialTotalSecondsPause, setInitialTotalSecondsPause] = useState(0);
-
     // Valores padrões
     const [focusMinutes, setFocusMinutes] = useState(initialFocusMinutes);
     const [focusSeconds, setFocusSeconds] = useState(0);
@@ -32,142 +26,113 @@ export const TimerProvider = ({ children }) => {
     const pausar = () => {
         if (temporizador.current) {
             clearInterval(temporizador.current);
-            // Reseta o start time
-            setTimerStartTime(null);
-            setTimerStartTimePause(null);
+            temporizador.current = null;
         }
     };
 
     // Mensagem de erro
     const [errorMessage, setErrorMessage] = useState("");
 
-    // Iniciar timer 
+    // Iniciar timer de foco
     const iniciarFoco = () => {
-
         // Se já existe um timer rodando, limpa ele primeiro
         if (temporizador.current) {
             clearInterval(temporizador.current);
         }
 
-        // Armazena quando o timer começou e o tempo total inicial
+        // Calcula o tempo total em segundos
         const totalSeconds = focusMinutes * 60 + focusSeconds;
-        setTimerStartTime(Date.now());
-        setInitialTotalSeconds(totalSeconds);
 
-        temporizador.current = setInterval(() => {
-            // Verifica se o tempo está correto baseado no timestamp
-            if (timerStartTime) {
-                const elapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
-                const shouldHaveSeconds = initialTotalSeconds - elapsedSeconds;
-                const currentSeconds = focusMinutes * 60 + focusSeconds;
+        // Define quando o timer deve terminar (timestamp futuro)
+        const endTime = Date.now() + (totalSeconds * 1000);
 
-                // Se a diferença for maior que 2 segundos, corrige o timer
-                if (Math.abs(currentSeconds - shouldHaveSeconds) > 2) {
-                    const correctMinutes = Math.floor(shouldHaveSeconds / 60);
-                    const correctSeconds = shouldHaveSeconds % 60;
+        // Função para atualizar o display do timer
+        const updateTimer = () => {
+            const now = Date.now();
+            const remainingMs = endTime - now;
 
-                    if (shouldHaveSeconds <= 0) {
-                        setFocusMinutes(0);
-                        setFocusSeconds(0);
-                        clearInterval(temporizador.current);
-                        return;
-                    }
-
-                    setFocusMinutes(correctMinutes);
-                    setFocusSeconds(correctSeconds);
-                    return;
-                }
+            // Se o tempo acabou
+            if (remainingMs <= 0) {
+                setFocusMinutes(0);
+                setFocusSeconds(0);
+                clearInterval(temporizador.current);
+                temporizador.current = null;
+                // Aqui você pode adicionar callbacks ou notificações
+                console.log("Timer de foco finalizado!");
+                return;
             }
 
-            setFocusSeconds((prevSeconds) => {
-                if (prevSeconds > 0) {
-                    // subtrai 1 segundo do tempo atual
-                    return prevSeconds - 1
-                } else {
+            // Converte milissegundos restantes para minutos e segundos
+            const remainingSeconds = Math.ceil(remainingMs / 1000);
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
 
-                    setFocusMinutes((prevMinutes) => {
-                        if (prevMinutes === 0) {
-                            clearInterval(temporizador.current);
-                            return 0
-                        };
-                        // diminui 1 minuto
-                        return prevMinutes - 1
-                    })
-                    // reseta os segundos para 59
-                    return 59;
-                }
-            })
-        }, 1000)
+            // Atualiza o estado apenas se houve mudança
+            setFocusMinutes(prev => prev !== minutes ? minutes : prev);
+            setFocusSeconds(prev => prev !== seconds ? seconds : prev);
+        };
+
+        // Atualiza imediatamente
+        updateTimer();
+
+        // Configura o intervalo
+        temporizador.current = setInterval(updateTimer, 1000);
 
         setErrorMessage("");
     }
 
-
+    // Iniciar timer de pausa
     const iniciarPause = () => {
-
         // Se já existe um timer rodando, limpa ele primeiro
         if (temporizador.current) {
             clearInterval(temporizador.current);
         }
 
-        // Armazena quando o timer começou e o tempo total inicial
-        const totalSecondsPause = pauseMinutes * 60 + pauseSeconds;
-        setTimerStartTimePause(Date.now());
-        setInitialTotalSecondsPause(totalSecondsPause);
+        // Calcula o tempo total em segundos
+        const totalSeconds = pauseMinutes * 60 + pauseSeconds;
 
-        temporizador.current = setInterval(() => {
-            // Verifica se o tempo está correto baseado no timestamp
-            if (timerStartTimePause) {
-                const elapsedSecondsPause = Math.floor((Date.now() - timerStartTimePause) / 1000);
-                const shouldHaveSecondsPause = initialTotalSecondsPause - elapsedSecondsPause;
-                const currentSecondsPause = pauseMinutes * 60 + pauseSeconds;
+        // Define quando o timer deve terminar (timestamp futuro)
+        const endTime = Date.now() + (totalSeconds * 1000);
 
-                // Se a diferença for maior que 2 segundos, corrige o timer
-                if (Math.abs(currentSecondsPause - shouldHaveSecondsPause) > 2) {
-                    const correctMinutesPause = Math.floor(shouldHaveSecondsPause / 60);
-                    const correctSecondsPause = shouldHaveSecondsPause % 60;
+        // Função para atualizar o display do timer
+        const updateTimer = () => {
+            const now = Date.now();
+            const remainingMs = endTime - now;
 
-                    if (shouldHaveSecondsPause <= 0) {
-                        setPauseMinutes(0);
-                        setPauseSeconds(0);
-                        clearInterval(temporizador.current);
-                        return;
-                    }
-
-                    setPauseMinutes(correctMinutesPause);
-                    setPauseSeconds(correctSecondsPause);
-                    return;
-                }
+            // Se o tempo acabou
+            if (remainingMs <= 0) {
+                setPauseMinutes(0);
+                setPauseSeconds(0);
+                clearInterval(temporizador.current);
+                temporizador.current = null;
+                // Aqui você pode adicionar callbacks ou notificações
+                console.log("Timer de pausa finalizado!");
+                return;
             }
-            setPauseSeconds((prevSeconds) => {
-                if (prevSeconds > 0) {
-                    // subtrai 1 segundo do tempo atual
-                    return prevSeconds - 1
-                } else {
 
-                    setPauseMinutes((prevMinutes) => {
-                        if (prevMinutes === 0) {
-                            clearInterval(temporizador.current);
-                            return 0
-                        };
-                        // diminui 1 minuto
-                        return prevMinutes - 1
-                    })
-                    // reseta os segundos para 59
-                    return 59;
-                }
-            })
-        }, 1000)
+            // Converte milissegundos restantes para minutos e segundos
+            const remainingSeconds = Math.ceil(remainingMs / 1000);
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
+
+            // Atualiza o estado apenas se houve mudança
+            setPauseMinutes(prev => prev !== minutes ? minutes : prev);
+            setPauseSeconds(prev => prev !== seconds ? seconds : prev);
+        };
+
+        // Atualiza imediatamente
+        updateTimer();
+
+        // Configura o intervalo
+        temporizador.current = setInterval(updateTimer, 1000);
 
         setErrorMessage("");
     }
 
     // Alter focus
     const alterFocusMinutes = (novoValor) => {
-
         const num = Number(novoValor);
         setFocusMinutes(num);
-
     }
 
     // Alter pause
@@ -176,6 +141,20 @@ export const TimerProvider = ({ children }) => {
         const num = Number(novoValor);
         // e passamos como valor padrão para minutes
         setPauseMinutes(num);
+    }
+
+    // Função para resetar o timer de foco
+    const resetarFoco = () => {
+        pausar();
+        setFocusMinutes(resetFocusMinutes);
+        setFocusSeconds(0);
+    }
+
+    // Função para resetar o timer de pausa
+    const resetarPause = () => {
+        pausar();
+        setPauseMinutes(resetPauseMinutes);
+        setPauseSeconds(0);
     }
 
     return (
@@ -204,6 +183,10 @@ export const TimerProvider = ({ children }) => {
             resetFocusMinutes, setResetFocusMinutes,
             resetPauseMinutes, setResetPauseMinutes,
 
+            // Funções de reset
+            resetarFoco,
+            resetarPause,
+
             // Mensagens de erro
             errorMessage, setErrorMessage,
 
@@ -212,13 +195,8 @@ export const TimerProvider = ({ children }) => {
 
             // Função de pausar
             pausar,
-
-            // Prevenção para guia inativa
-            setTimerStartTime, setInitialTotalSeconds,
-            setTimerStartTimePause, setInitialTotalSecondsPause,
         }}>
             {children}
         </TimerContext.Provider>
-
     )
 }

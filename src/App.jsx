@@ -17,11 +17,11 @@ function App() {
     <>
       <header>
         <nav>
-          <h2>FocusFlow</h2>
+          <h2 className="font_brant">FocusFlow</h2>
         </nav>
       </header>
 
-      <h1 className='pb-6'>FocusFlow</h1>
+      <h1 className='pb-6 font_brant'>FocusFlow</h1>
       <TimerProvider>
         <CronomemetroProvider>
           <BrowserRouter>

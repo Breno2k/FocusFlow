@@ -8,6 +8,7 @@
   src: url('../fonts/Akira\ Expanded\ Demo.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 
