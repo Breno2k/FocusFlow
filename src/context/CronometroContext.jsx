@@ -13,76 +13,62 @@ export const CronomemetroProvider = ({ children }) => {
     // Segundos
     const [croSeconds, setCroSeconds] = useState(0);
 
-    // iniciais
-    const [cronometroStartTime, setCronometroStartTime] = useState(null);
-    const [cronometroInitialSeconds, setCronometroInitialSeconds] = useState(0);
-
     // temporizador
     const temporizador = useRef(null);
 
     // Iniciar Cronômetro
     const iniciarCronometro = () => {
-
         // Se já existe um timer rodando, limpa ele primeiro
         if (temporizador.current) {
             clearInterval(temporizador.current);
         }
 
-        // Armazena quando o cronômetro começou e o tempo inicial
+        // Calcula o tempo total inicial em segundos (tempo que já estava no cronômetro)
         const initialTotalSeconds = horas * 3600 + croMinutes * 60 + croSeconds;
-        setCronometroStartTime(Date.now());
-        setCronometroInitialSeconds(initialTotalSeconds);
 
-        temporizador.current = setInterval(() => {
+        // Define quando o cronômetro começou a contar
+        const startTime = Date.now();
 
-            if (cronometroStartTime) { // Só faz a verificação se o startTime existe
-                const elapsedSeconds = Math.floor((Date.now() - cronometroStartTime) / 1000);
-                const shouldHaveSeconds = cronometroInitialSeconds + elapsedSeconds;
-                const currentTotalSeconds = horas * 3600 + croMinutes * 60 + croSeconds;
+        // Função para atualizar o display do cronômetro
+        const updateCronometro = () => {
+            const now = Date.now();
+            const elapsedMs = now - startTime;
+            const elapsedSeconds = Math.floor(elapsedMs / 1000);
 
-                // Se a diferença for maior que 2 segundos, corrige o cronômetro
-                if (Math.abs(currentTotalSeconds - shouldHaveSeconds) > 2) {
-                    const correctHours = Math.floor(shouldHaveSeconds / 3600);
-                    const correctMinutes = Math.floor((shouldHaveSeconds % 3600) / 60);
-                    const correctSeconds = shouldHaveSeconds % 60;
+            // Soma o tempo inicial com o tempo decorrido
+            const totalSeconds = initialTotalSeconds + elapsedSeconds;
 
-                    setHoras(correctHours);
-                    setCroMinutes(correctMinutes);
-                    setCroSeconds(correctSeconds);
-                    return;
-                }
-            }
+            // Converte para horas, minutos e segundos
+            const newHoras = Math.floor(totalSeconds / 3600);
+            const newMinutos = Math.floor((totalSeconds % 3600) / 60);
+            const newSegundos = totalSeconds % 60;
 
-            setCroSeconds((prevSeconds) => {
-                if (prevSeconds < 59) {
-                    // incrementa mais 1 segundo
-                    return prevSeconds + 1
-                } else {
-                    setCroMinutes(prevMinutes => {
-                        if (prevMinutes < 59) {
-                            // incrementa mais 1 minutos
-                            return prevMinutes + 1
-                        } else {
-                            // incrementea mais uma hora
-                            setHoras(prevHoras => prevHoras + 1)
-                            // reinicia minutos
-                            return 0
-                        }
-                    })
-                    // reinicia segundos
-                    return 0
-                }
-            })
-        }, 1000)
+            // Atualiza o estado apenas se houve mudança
+            setHoras(prev => prev !== newHoras ? newHoras : prev);
+            setCroMinutes(prev => prev !== newMinutos ? newMinutos : prev);
+            setCroSeconds(prev => prev !== newSegundos ? newSegundos : prev);
+        };
+
+        // Atualiza imediatamente
+        updateCronometro();
+
+        // Configura o intervalo
+        temporizador.current = setInterval(updateCronometro, 1000);
     }
+
 
     return (
         <CronometroContext.Provider value={{
-            iniciarCronometro,
+            // Estados do cronômetro
+            horas, setHoras,
             croMinutes, setCroMinutes,
             croSeconds, setCroSeconds,
-            horas, setHoras, temporizador,
-            setCronometroStartTime, setCronometroInitialSeconds,
+
+            // Funções principais
+            iniciarCronometro,
+
+            // Referência do timer (se precisar acessar externamente)
+            temporizador,
         }}>
             {children}
         </CronometroContext.Provider>

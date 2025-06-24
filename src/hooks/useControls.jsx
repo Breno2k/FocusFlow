@@ -4,7 +4,7 @@ import { CronometroContext } from "../context/CronometroContext";
 export const useControls = () => {
 
     const {
-        temporizador, setHoras, setCroMinutes, setCroSeconds, setCronometroStartTime, setCronometroInitialSeconds
+        temporizador, setHoras, setCroMinutes, setCroSeconds
     } = useContext(CronometroContext)
 
 
@@ -21,9 +21,6 @@ export const useControls = () => {
         setHoras(0);
         setCroMinutes(0);
         setCroSeconds(0);
-        setCronometroStartTime(null);
-        setCronometroInitialSeconds(0);
-
         console.log('resetado')
     };
 
