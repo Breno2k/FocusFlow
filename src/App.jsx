@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import { TimerProvider } from './context/TimerContext'
 import Cronometro from './pages/Cronometro'
 import { CronomemetroProvider } from './context/CronometroContext'
+import { Toaster } from './components/ui/sonner'
 
 function AppContent() {
   const location = useLocation();
@@ -84,6 +85,7 @@ function App() {
       <TimerProvider>
         <CronomemetroProvider>
           <BrowserRouter>
+            <Toaster richColors position="top-right" />
             <AppContent />
           </BrowserRouter>
         </CronomemetroProvider>

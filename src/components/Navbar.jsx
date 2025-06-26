@@ -1,5 +1,8 @@
 import { NavLink, useLocation } from "react-router-dom"
 import styles from "./Navbar.module.css"
+import cronometroFoto from "../assets/cronometro.png"
+import pause from "../assets/pause-break.png"
+import focus from "../assets/focus-session.png"
 
 const Navbar = () => {
 
@@ -10,17 +13,17 @@ const Navbar = () => {
         return (
             <nav className={`${styles.nav} ${styles.homeNav}`}>
                 <NavLink to="/Cronometro" className={styles.card}>
-                    <img src="../public/cronometro.png" alt="Cronômetro" />
+                    <img src={cronometroFoto} alt="Cronômetro" />
                     <h2>Cronômetro</h2>
                 </NavLink>
 
                 <NavLink to="/TimerFocus" className={styles.card}>
-                    <img src="../public/focus-session.png" alt="Timer Foco" />
+                    <img src={focus} alt="Timer Foco" />
                     <h2>Timer Foco</h2>
                 </NavLink>
 
                 <NavLink to="/TimerPause" className={styles.card}>
-                    <img src="../public/pause-break.png" alt="Timer Pausa" />
+                    <img src={pause} alt="Timer Pausa" />
                     <h2>Timer Pausa</h2>
                 </NavLink>
             </nav>

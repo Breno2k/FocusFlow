@@ -14,6 +14,8 @@ import { Button } from './ui/button';
 import { Minus, Plus } from "lucide-react"
 import "./Timer.css"
 import musica from "../assets/songs/ding-101492.mp3"
+import { toast } from "sonner"
+
 
 const Timer = ({
     minutes, alterMinutes,
@@ -97,7 +99,6 @@ const Timer = ({
                         <DrawerHeader>
                             {location.pathname === '/TimerFocus' && <DrawerTitle>Período de Foco</DrawerTitle>}
                             {location.pathname !== '/TimerFocus' && <DrawerTitle>Período de Pausa</DrawerTitle>}
-
                             <DrawerDescription>
                                 Defina quantos minutos você quer focar nesta sessão.
                             </DrawerDescription>
@@ -162,7 +163,61 @@ const Timer = ({
                         </div>
 
                         <DrawerFooter>
-                            <Button onClick={handleAlterMinutes}>
+                            <Button onClick={(e) => {
+
+                                handleAlterMinutes(e);
+
+                                {
+                                    location.pathname === '/TimerFocus' &&
+                                    toast("Período de Foco alterado foi com sucesso!", {
+                                        description: `O tempo foi ajustado para ${inputMinutes} minutos`,
+                                        className: "toast-custom",
+                                        style: {
+                                            border: '1px solid #00ff41',
+                                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                            color: '#00ff41',
+                                            boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                        },
+                                        action: {
+                                            label: <span
+                                                className="material-symbols-outlined"
+                                                style={{
+                                                    color: '#00ff41',
+                                                    textShadow: '0 0 8px #00ff41',
+                                                    fontSize: '18px'
+                                                }}
+                                            >
+                                                check_circle
+                                            </span>,
+                                        },
+                                    });
+                                }
+                                {
+                                    location.pathname !== '/TimerFocus' &&
+                                    toast("Período de Pausa alterado foi com sucesso!", {
+                                        description: `O tempo foi ajustado para ${inputMinutes} minutos`,
+                                        className: "toast-custom",
+                                        style: {
+                                            border: '1px solid #00ff41',
+                                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                            color: '#00ff41',
+                                            boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                        },
+                                        action: {
+                                            label: <span
+                                                className="material-symbols-outlined"
+                                                style={{
+                                                    color: '#00ff41',
+                                                    textShadow: '0 0 8px #00ff41',
+                                                    fontSize: '18px'
+                                                }}
+                                            >
+                                                check_circle
+                                            </span>,
+                                        },
+                                    });
+                                }
+                            }}>
                                 Alterar Período
                             </Button>
                             <DrawerClose asChild>
