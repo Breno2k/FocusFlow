@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import './App.css'
 
 
@@ -15,16 +15,18 @@ function App() {
 
   return (
     <>
-      <header>
-        <nav>
-          <h2 className="font_brant">FocusFlow</h2>
-        </nav>
-      </header>
-
-      <h1 className='pb-6 font_brant'>FocusFlow</h1>
       <TimerProvider>
         <CronomemetroProvider>
           <BrowserRouter>
+            <header>
+              <nav>
+                <Link to="/" className="link-reset">
+                  <h2>FocusFlow</h2>
+                </Link>
+              </nav>
+            </header>
+
+            <h1 className='pb-6 font_brant'>FocusFlow</h1>
             <Navbar />
             <Routes>
               <Route path="/Cronometro" element={<Cronometro />} />
