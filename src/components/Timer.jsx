@@ -86,9 +86,174 @@ const Timer = ({
         <div>
             {/* padStart faz com que seconds sem seja exibido com dois digitos */}
             <p className="timer">{minutes}:{String(seconds).padStart(2, '0')}</p>
-            <button className="!bg-white text-black hover:!border-black" onClick={iniciar}>Iniciar</button>
-            <button className="material-symbols-outlined" onClick={pausar}>pause</button>
-            <button className="material-symbols-outlined" onClick={resetar}>refresh</button>
+            <button className="!bg-white text-black hover:!border-black" onClick={() => {
+
+                iniciar();
+
+                {
+                    if (location.pathname === '/TimerFocus') {
+                        toast("Você iniciou o período de foco!", {
+                            description: `Aproveite ao máximo o seu tempo de concentração.`,
+                            className: "toast-custom",
+                            style: {
+                                border: '1px solid #00ff41',
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                color: '#00ff41',
+                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                textAlign: 'left',
+                            },
+                            action: {
+                                label: <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                        color: '#00ff41',
+                                        textShadow: '0 0 8px #00ff41',
+                                        fontSize: '18px'
+                                    }}
+                                >
+                                    check_circle
+                                </span>,
+                            },
+                        });
+                    } else {
+                        toast("Hora do descanso!", {
+                            description: `Relaxe um pouco antes de voltar ao foco.`,
+                            className: "toast-custom",
+                            style: {
+                                border: '1px solid #00ff41',
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                color: '#00ff41',
+                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                textAlign: 'left',
+                            },
+                            action: {
+                                label: <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                        color: '#00ff41',
+                                        textShadow: '0 0 8px #00ff41',
+                                        fontSize: '18px'
+                                    }}
+                                >
+                                    check_circle
+                                </span>,
+                            },
+                        });
+                    }
+                }
+            }}>Iniciar</button>
+            <button className="material-symbols-outlined" onClick={() => {
+
+                pausar();
+
+                {
+                    if (location.pathname === '/TimerFocus') {
+                        toast("Você pausou o período de foco.", {
+                            description: `Volte quando estiver pronto para retomar.`,
+                            className: "toast-custom",
+                            style: {
+                                border: '1px solid #00ff41',
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                color: '#00ff41',
+                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                textAlign: 'left',
+                            },
+                            action: {
+                                label: <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                        color: '#00ff41',
+                                        textShadow: '0 0 8px #00ff41',
+                                        fontSize: '18px'
+                                    }}
+                                >
+                                    check_circle
+                                </span>,
+                            },
+                        });
+                    } else {
+                        toast("A pausa foi pausada (sim, isso mesmo 😅).", {
+                            description: `Você pode retomá-la quando quiser.`,
+                            className: "toast-custom",
+                            style: {
+                                border: '1px solid #00ff41',
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                color: '#00ff41',
+                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                textAlign: 'left',
+                            },
+                            action: {
+                                label: <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                        color: '#00ff41',
+                                        textShadow: '0 0 8px #00ff41',
+                                        fontSize: '18px'
+                                    }}
+                                >
+                                    check_circle
+                                </span>,
+                            },
+                        });
+                    }
+                }
+            }}>pause</button>
+            <button className="material-symbols-outlined" onClick={() => {
+
+                resetar();
+
+                {
+                    if (location.pathname === '/TimerFocus') {
+                        toast("O timer de foco foi resetado.", {
+                            description: `Prepare-se para iniciar um novo ciclo produtivo.`,
+                            className: "toast-custom",
+                            style: {
+                                border: '1px solid #00ff41',
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                color: '#00ff41',
+                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                textAlign: 'left',
+                            },
+                            action: {
+                                label: <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                        color: '#00ff41',
+                                        textShadow: '0 0 8px #00ff41',
+                                        fontSize: '18px'
+                                    }}
+                                >
+                                    check_circle
+                                </span>,
+                            },
+                        });
+                    } else {
+                        toast("A pausa foi resetada.", {
+                            description: `Recomece o descanso quando preferir.`,
+                            className: "toast-custom",
+                            style: {
+                                border: '1px solid #00ff41',
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                color: '#00ff41',
+                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                textAlign: 'left',
+                            },
+                            action: {
+                                label: <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                        color: '#00ff41',
+                                        textShadow: '0 0 8px #00ff41',
+                                        fontSize: '18px'
+                                    }}
+                                >
+                                    check_circle
+                                </span>,
+                            },
+                        });
+                    }
+                }
+            }}>refresh</button>
 
             <Drawer>
                 <DrawerTrigger asChild>
@@ -169,53 +334,53 @@ const Timer = ({
 
                                 {
                                     location.pathname === '/TimerFocus' &&
-                                    toast("Período de Foco alterado foi com sucesso!", {
-                                        description: `O tempo foi ajustado para ${inputMinutes} minutos`,
-                                        className: "toast-custom",
-                                        style: {
-                                            border: '1px solid #00ff41',
-                                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                                            color: '#00ff41',
-                                            boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
-                                        },
-                                        action: {
-                                            label: <span
-                                                className="material-symbols-outlined"
-                                                style={{
-                                                    color: '#00ff41',
-                                                    textShadow: '0 0 8px #00ff41',
-                                                    fontSize: '18px'
-                                                }}
-                                            >
-                                                check_circle
-                                            </span>,
-                                        },
-                                    });
+                                        toast("Período de Foco alterado foi com sucesso!", {
+                                            description: `O tempo foi ajustado para ${inputMinutes} minutos`,
+                                            className: "toast-custom",
+                                            style: {
+                                                border: '1px solid #00ff41',
+                                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                                color: '#00ff41',
+                                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                            },
+                                            action: {
+                                                label: <span
+                                                    className="material-symbols-outlined"
+                                                    style={{
+                                                        color: '#00ff41',
+                                                        textShadow: '0 0 8px #00ff41',
+                                                        fontSize: '18px'
+                                                    }}
+                                                >
+                                                    check_circle
+                                                </span>,
+                                            },
+                                        });
                                 }
                                 {
                                     location.pathname !== '/TimerFocus' &&
-                                    toast("Período de Pausa alterado foi com sucesso!", {
-                                        description: `O tempo foi ajustado para ${inputMinutes} minutos`,
-                                        className: "toast-custom",
-                                        style: {
-                                            border: '1px solid #00ff41',
-                                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                                            color: '#00ff41',
-                                            boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
-                                        },
-                                        action: {
-                                            label: <span
-                                                className="material-symbols-outlined"
-                                                style={{
-                                                    color: '#00ff41',
-                                                    textShadow: '0 0 8px #00ff41',
-                                                    fontSize: '18px'
-                                                }}
-                                            >
-                                                check_circle
-                                            </span>,
-                                        },
-                                    });
+                                        toast("Período de Pausa alterado foi com sucesso!", {
+                                            description: `O tempo foi ajustado para ${inputMinutes} minutos`,
+                                            className: "toast-custom",
+                                            style: {
+                                                border: '1px solid #00ff41',
+                                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                                color: '#00ff41',
+                                                boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                            },
+                                            action: {
+                                                label: <span
+                                                    className="material-symbols-outlined"
+                                                    style={{
+                                                        color: '#00ff41',
+                                                        textShadow: '0 0 8px #00ff41',
+                                                        fontSize: '18px'
+                                                    }}
+                                                >
+                                                    check_circle
+                                                </span>,
+                                            },
+                                        });
                                 }
                             }}>
                                 Alterar Período
