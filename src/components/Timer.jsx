@@ -342,6 +342,7 @@ const Timer = ({
                                                 backgroundColor: 'rgba(0, 0, 0, 0.9)',
                                                 color: '#00ff41',
                                                 boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                                textAlign: 'left',
                                             },
                                             action: {
                                                 label: <span
@@ -367,6 +368,7 @@ const Timer = ({
                                                 backgroundColor: 'rgba(0, 0, 0, 0.9)',
                                                 color: '#00ff41',
                                                 boxShadow: '0 4px 12px rgba(0, 255, 65, 0.3)',
+                                                textAlign: 'left',
                                             },
                                             action: {
                                                 label: <span
