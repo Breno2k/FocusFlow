@@ -73,8 +73,7 @@ function AppContent() {
       )
       }
 
-      {/* <Navbar /> */}
-
+      <Navbar />
       <Routes>
         <Route path="/Cronometro" element={<Cronometro />} />
         <Route path="/TimerFocus" element={<TimerFoco />} />
