@@ -30,8 +30,8 @@ function AppContent() {
       </header>
 
       {/* Título Principal */}
-      <div className="relative mb-8">
-        <h1 className="text-7xl md:text-8xl font-black text-white mb-4 tracking-tight">
+      <div className="relative mb-8 px-3 flex flex-col items-center text-center">
+        <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-4 tracking-tight">
           Focus
           <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Flow
@@ -39,24 +39,27 @@ function AppContent() {
         </h1>
 
         {/* Efeito de brilho animado */}
-        <div className="absolute inset-0 text-7xl md:text-8xl font-black text-white opacity-20 animate-pulse blur-sm">
+        <div className="absolute inset-0 flex justify-center text-6xl md:text-7xl lg:text-8xl font-black text-white opacity-20 animate-pulse blur-sm">
           FocusFlow
         </div>
       </div>
 
+
       {isHome && (
         <>
           {/* Subtítulo */}
-          <div className="mb-12 space-y-6">
-            <p className="text-2xl md:text-3xl text-white font-light leading-relaxed">
+          <div className="mb-12 space-y-6 px-3 sm:px-6 md:px-0">
+            <p className="text-sm sm:text-base md:text-3xl lg:text-4xl text-white font-light leading-relaxed text-center">
               Uma ferramenta para
-              <span className="font-semibold bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent"> turbinar </span>
+              <span className="font-semibold bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">
+                {" "}turbinar{" "}
+              </span>
               sua produtividade!
             </p>
 
             {/* Descrição */}
             <div className="max-w-3xl mx-auto">
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-light">
+              <p className="text-xs sm:text-sm md:text-xl text-gray-200 leading-relaxed font-light text-center">
                 Inspirado na
                 <span className="text-cyan-300 font-medium"> Técnica Pomodoro</span>,
                 você consegue controlar suas sessões de concentração e pausas personalizadas
@@ -65,11 +68,13 @@ function AppContent() {
               </p>
             </div>
           </div>
+
         </>
       )
       }
 
-      <Navbar />
+      {/* <Navbar /> */}
+
       <Routes>
         <Route path="/Cronometro" element={<Cronometro />} />
         <Route path="/TimerFocus" element={<TimerFoco />} />
