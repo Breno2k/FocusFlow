@@ -159,14 +159,10 @@ nav a {
   width: 200px;
   margin: 10px
 } 
-  nav a {
-    padding: 10px 12px;
-    margin: 4px;
-  }
 }
 
 /* Celulares pequenos (320px a 480px) */
-@media (min-width: 551px) and (max-width: 699px) {
+@media (min-width: 555px) and (max-width: 699px) {
   .card {
   width: 140px;
   }
@@ -178,7 +174,7 @@ nav a {
 }
 
 /* Celulares muito pequenos (até 320px) */
-@media (max-width: 550px) {
+@media (max-width: 554px) {
   .card {
   width: 100px;
   margin: 6px
@@ -190,4 +186,29 @@ nav a {
   font-size: 0.7rem;
 }
 
+  nav a {
+  margin: 0 10px;
+  padding: 10px;
+  font-size: 0.7rem
 }
+}
+
+@media (max-width: 380px) {
+  .card {
+  width: 90px;
+  margin: 6px
+  }
+  
+  .card h2 {
+  margin-top: 10px;
+  padding: 0;
+  font-size: 0.7rem;
+}
+
+  nav a {
+  margin: 0 10px;
+  padding: 10px;
+  font-size: 0.7rem
+}
+}
+

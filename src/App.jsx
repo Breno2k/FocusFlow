@@ -31,7 +31,7 @@ function AppContent() {
 
       {/* Título Principal */}
       <div className="relative mb-8 px-3 flex flex-col items-center text-center">
-        <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-4 tracking-tight">
+        <h1 className="text-6xl sm:text-5x1 md:text-7xl lg:text-8xl font-black text-white mb-4 tracking-tight">
           Focus
           <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Flow
@@ -39,7 +39,7 @@ function AppContent() {
         </h1>
 
         {/* Efeito de brilho animado */}
-        <div className="absolute inset-0 flex justify-center text-6xl md:text-7xl lg:text-8xl font-black text-white opacity-20 animate-pulse blur-sm">
+        <div className="absolute inset-0 flex justify-center text-6xl sm:text-5x1 md:text-7xl lg:text-8xl font-black text-white opacity-20 animate-pulse blur-sm">
           FocusFlow
         </div>
       </div>

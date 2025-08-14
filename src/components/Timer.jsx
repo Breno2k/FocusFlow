@@ -86,7 +86,7 @@ const Timer = ({
         <div>
             {/* padStart faz com que seconds sem seja exibido com dois digitos */}
             <p className="timer">{minutes}:{String(seconds).padStart(2, '0')}</p>
-            <button className="!bg-white text-black hover:!border-black" onClick={() => {
+            <button className=" !bg-white text-black hover:!border-black" onClick={() => {
 
                 iniciar();
 
