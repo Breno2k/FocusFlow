@@ -43,8 +43,8 @@ button:focus-visible {
 button {
   /* margin: 0 5px;
   padding: 8px 20px; */
-  margin: 0 10px;
-  padding: 10px 13px;
-  font-size: 1.1rem;
+  margin: 5px;
+  padding: 0.6em 13px;
+  font-size: 1rem;
 }
 }
